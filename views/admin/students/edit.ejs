@@ -1,0 +1,68 @@
+<% layout('layouts/main') %>
+
+<div class="card">
+  <div class="card-body">
+    <h1 class="mb-4">Edit Student</h1>
+
+    <form action="/admin/students/<%= student._id %>?_method=PATCH" method="POST">
+      <div class="mb-3">
+        <label for="studentId" class="form-label">Student ID</label>
+        <input type="text" class="form-control" id="studentId" name="studentId" value="<%= student.studentId %>" required>
+      </div>
+      <div class="mb-3">
+        <label for="firstName" class="form-label">First Name</label>
+        <input type="text" class="form-control" id="firstName" name="firstName" value="<%= student.firstName %>" required>
+      </div>
+      <div class="mb-3">
+        <label for="middleName" class="form-label">Middle Name</label>
+        <input type="text" class="form-control" id="middleName" name="middleName" value="<%= student.middleName %>">
+      </div>
+      <div class="mb-3">
+        <label for="lastName" class="form-label">Last Name</label>
+        <input type="text" class="form-control" id="lastName" name="lastName" value="<%= student.lastName %>" required>
+      </div>
+      <div class="mb-3">
+        <label for="level" class="form-label">Level</label>
+        <input type="number" class="form-control" id="level" name="level" value="<%= student.level %>" min="1" max="12" required>
+      </div>
+      <div class="mb-3">
+        <label for="district" class="form-label">District</label>
+        <input type="text" class="form-control" id="district" name="district" value="<%= student.district %>" required>
+      </div>
+      <!-- Add Siblings Field -->
+      <div class="mb-3">
+        <label for="siblings" class="form-label">Siblings</label>
+        <div id="siblingsContainer">
+          <% if (student.siblings.length > 0) { %>
+            <% student.siblings.forEach((sibling, index) => { %>
+              <div class="input-group mb-2">
+                <select class="form-select" name="siblings[]">
+                  <option value="">Select a sibling</option>
+                  <% allStudents.forEach(s => { %>
+                    <option value="<%= s.studentId %>" <%= sibling.studentId === s.studentId ? 'selected' : '' %>><%= s.studentId %> - <%= s.firstName %> <%= s.lastName %></option>
+                  <% }) %>
+                </select>
+                <button type="button" class="btn btn-danger remove-sibling">Remove</button>
+              </div>
+            <% }) %>
+          <% } else { %>
+            <div class="input-group mb-2">
+              <select class="form-select" name="siblings[]">
+                <option value="">Select a sibling</option>
+                <% allStudents.forEach(s => { %>
+                  <option value="<%= s.studentId %>"><%= s.studentId %> - <%= s.firstName %> <%= s.lastName %></option>
+                <% }) %>
+              </select>
+              <button type="button" class="btn btn-danger remove-sibling">Remove</button>
+            </div>
+          <% } %>
+        </div>
+        <button type="button" class="btn btn-secondary btn-sm" id="addSibling">Add Another Sibling</button>
+      </div>
+      <button type="submit" class="btn btn-success">Update Student</button>
+      <a href="/admin/students" class="btn btn-secondary">Cancel</a>
+    </form>
+  </div>
+</div>
+
+<script src="/js/admin/students/edit.js"></script>

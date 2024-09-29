@@ -1,0 +1,24 @@
+<% layout('layouts/main') %>
+
+<h1 class="mb-4">Monthly Report for <%= month %>/<%= year %></h1>
+
+<table class="table table-striped">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">Student ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Has Paid</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% reportData.forEach(data => { %>
+      <tr>
+        <td><%= data.student.studentId %></td>
+        <td><%= data.student.firstName %> <%= data.student.middleName %> <%= data.student.lastName %></td>
+        <td><%= data.hasPaid ? 'Yes' : 'No' %></td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+<a href="/admin/reports" class="btn btn-secondary">Back to Reports</a>

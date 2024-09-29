@@ -1,0 +1,38 @@
+<% layout('layouts/main') %>
+
+<div class="card">
+  <div class="card-body">
+    <h1 class="mb-4">Payment Details for <%= student.firstName %> <%= student.lastName %> - <%= year %></h1>
+
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">Month</th>
+            <th scope="col">Education Fee Paid</th>
+            <th scope="col">Transport Fee Paid</th>
+            <th scope="col">Education Discount</th>
+            <th scope="col">Transport Discount</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% payments.forEach(payment => { %>
+            <tr>
+              <td><%= payment.month %></td>
+              <td><%= payment.educationFeePaidAmount %></td>
+              <td><%= payment.transportFeePaidAmount %></td>
+              <td><%= payment.educationDiscount %></td>
+              <td><%= payment.transportDiscount %></td>
+              <td>
+                <a href="/payments/<%= student._id %>/<%= year %>/<%= payment.month %>/edit" class="btn btn-warning btn-sm">Edit</a>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+
+    <a href="/students/<%= student._id %>" class="btn btn-secondary">Back to Student</a>
+  </div>
+</div>

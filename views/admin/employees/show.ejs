@@ -1,0 +1,41 @@
+<% layout('layouts/main') %>
+
+<h1 class="mb-4">DATA LOGIN</h1>
+
+<div class="card">
+  <div class="card-header">
+    <strong><%= employee.username %></strong>
+  </div>
+  <div class="card-body">
+    <p><strong>Username:</strong> <%= employee.username %></p>
+    <!-- Add more details as needed -->
+  </div>
+  <div class="card-footer">
+    <a href="/admin/employees/<%= employee._id %>/edit" class="btn btn-warning">Edit</a>
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+      Delete
+    </button>
+    <a href="/admin/employees" class="btn btn-secondary">Keluar</a>
+  </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete the employee "<%= employee.username %>"?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <form action="/admin/employees/<%= employee._id %>?_method=DELETE" method="POST" class="d-inline">
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

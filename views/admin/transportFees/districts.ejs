@@ -1,0 +1,33 @@
+<!-- views/admin/transportFees/districts.ejs -->
+<% layout('layouts/main') %>
+
+<div class="card mb-4">
+  <div class="card-body">
+    <h1 class="mb-4">Tarif Pempayaran Transportasi <%= year %></h1>
+
+    <h3>District</h3>
+    <ul class="list-group mb-4">
+      <% districts.forEach(district => { %>
+        <li class="list-group-item">
+          <a href="/admin/transportFees/<%= year %>/<%= district %>"><%= district %></a>
+        </li>
+      <% }) %>
+    </ul>
+
+    <h3>Tanbah District</h3>
+    <form action="/admin/transportFees/<%= year %>/new" method="POST">
+      <div class="mb-3">
+        <label for="district" class="form-label">Nama District</label>
+        <input type="text" class="form-control" id="district" name="district" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <% if (locals.error) { %>
+      <div class="alert alert-danger mt-3"><%= locals.error %></div>
+    <% } %>
+    <% if (locals.success) { %>
+      <div class="alert alert-success mt-3"><%= locals.success %></div>
+    <% } %>
+  </div>
+</div>

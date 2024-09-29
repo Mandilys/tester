@@ -1,0 +1,108 @@
+<!-- views/payments/transport.ejs -->
+<% layout('layouts/main') %>
+
+<div class="card">
+  <div class="card-body">
+    <!-- Change Student or Year Form -->
+    <div class="row g-3 mb-4">
+      <div class="col-md-6">
+        <label for="studentId" class="form-label">NIS</label>
+        <input type="text" class="form-control" id="studentId" value="<%= student ? student.studentId : '' %>" required>
+      </div>
+      <div class="col-md-4">
+        <label for="year" class="form-label">Tahun</label>
+        <input type="number" class="form-control" id="year" value="<%= year || '' %>" required>
+      </div>
+      <div class="col-md-2 align-self-end">
+        <button onclick="fetchPayments()" class="btn btn-primary">Input</button>
+      </div>
+    </div>
+
+    <% if (error) { %>
+      <div class="alert alert-danger"><%= error %></div>
+    <% } %>
+
+    <% if (student && payments) { %>
+      <h1 class="mb-4">Transport Payments for <%= student.firstName %> <%= student.lastName %> - Year <%= year %></h1>
+
+      <!-- Student Information -->
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title">Student Information</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>Student ID:</strong> <%= student.studentId %></li>
+            <li class="list-group-item"><strong>Name:</strong> <%= student.firstName %> <%= student.middleName ? student.middleName + ' ' : '' %><%= student.lastName %></li>
+            <li class="list-group-item"><strong>Level:</strong> <%= student.level %></li>
+            <li class="list-group-item"><strong>District:</strong> <%= student.district %></li>
+            <li class="list-group-item"><strong>Number of Siblings:</strong> <%= student.siblings.length %></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Transport Payments Table -->
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">Month</th>
+              <th scope="col">Amount Before Discount ($)</th>
+              <th scope="col">Discount ($)</th>
+              <th scope="col">Amount After Discount ($)</th>
+              <th scope="col">Status</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% payments.forEach(payment => { %>
+              <tr>
+                <td><%= payment.month %></td>
+                <td>$<%= payment.amountBeforeDiscount.toFixed(2) %></td>
+                <td>
+                  <form action="/payments/transport/update/<%= payment._id %>" method="POST" class="d-flex">
+                    <input type="hidden" name="_method" value="POST">
+                    
+                    <!-- Discount Input -->
+                    <input
+                      type="number"
+                      step="0.01"
+                      min="0"
+                      class="form-control form-control-sm me-2"
+                      name="discount"
+                      value="<%= payment.discount %>"
+                      required
+                      onchange="updateAmountAfterDiscount(this)"
+                    >
+                </td>
+                <td>$<span class="amount-after-discount"><%= payment.amountAfterDiscount.toFixed(2) %></span></td>
+                <td>
+                  <select
+                    class="form-select form-select-sm me-2"
+                    name="status"
+                    required
+                  >
+                    <option value="pending" <% if (payment.status === 'pending') { %>selected<% } %>>Pending</option>
+                    <option value="paid" <% if (payment.status === 'paid') { %>selected<% } %>>Paid</option>
+                  </select>
+                </td>
+                <td>
+                    <button 
+                      type="submit" 
+                      class="btn btn-sm btn-primary"
+                    >
+                      Update
+                    </button>
+                    <% if (isAdmin) { %>
+                      <a href="/payments/transport/status/history?studentId=<%= student.studentId %>&year=<%= year %>&paymentId=<%= payment._id %>" class="btn btn-sm btn-info ms-2">View History</a>
+                    <% } %>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    <% } %>
+  </div>
+</div>
+
+<script src="/js/payments/transport.js"></script>

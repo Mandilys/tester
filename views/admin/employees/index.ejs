@@ -1,0 +1,56 @@
+<% layout('layouts/main') %>
+
+<div class="card">
+  <div class="card-body">
+    <h1 class="mb-4">Login Staff</h1>
+
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">Username</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% employees.forEach(employee => { %>
+            <tr>
+              <td><%= employee.username %></td>
+              <td>
+                <a href="/admin/employees/<%= employee._id %>" class="btn btn-info btn-sm">View</a>
+                <a href="/admin/employees/<%= employee._id %>/edit" class="btn btn-warning btn-sm">Edit</a>
+                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal<%= employee._id %>">
+                  Delete
+                </button>
+              </td>
+            </tr>
+            <!-- Delete Modal -->
+            <div class="modal fade" id="deleteModal<%= employee._id %>" tabindex="-1" aria-labelledby="deleteModalLabel<%= employee._id %>" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel<%= employee._id %>">Confirm Deletion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    Are you sure you want to delete the employee "<%= employee.username %>"?
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <form action="/admin/employees/<%= employee._id %>?_method=DELETE" method="POST" class="d-inline">
+                      <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="d-flex justify-content-end mt-3">
+      <a href="/admin/employees/new" class="btn btn-primary">Buat Login Baru</a>
+    </div>
+  </div>
+</div>

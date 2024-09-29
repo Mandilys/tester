@@ -1,0 +1,21 @@
+<% layout('layouts/main') %>
+
+<div class="card">
+  <div class="card-body">
+    <h1 class="mb-4">Edit Data Login</h1>
+
+    <form action="/admin/employees/<%= employee._id %>?_method=PATCH" method="POST">
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" class="form-control" id="username" name="username" value="<%= employee.username %>" required>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" name="password">
+        <small class="form-text text-muted">Leave blank if you don't want to change the password.</small>
+      </div>
+      <button type="submit" class="btn btn-success">Update Data</button>
+      <a href="/admin/employees" class="btn btn-secondary">Cancel</a>
+    </form>
+  </div>
+</div>

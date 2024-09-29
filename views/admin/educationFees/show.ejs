@@ -1,0 +1,41 @@
+<!-- views/admin/educationFees/show.ejs -->
+<% layout('layouts/main') %>
+
+<h1 class="mb-4">SPP</h1>
+
+<div class="input-group mb-3">
+  <input type="number" id="yearInput" value="<%= year %>" class="form-control" min="2000" max="2100">
+  <button onclick="changeYear()" class="btn btn-secondary">GANTI TAHUN</button>
+</div>
+
+<table class="table table-bordered">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">KELAS</th>
+      <th scope="col">TARIF SPP (SAR)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>SD-TK</td>
+      <td>$<%= fees.fees.primary.toFixed(2) %></td>
+    </tr>
+    <tr>
+      <td>SMP</td>
+      <td>$<%= fees.fees.middle.toFixed(2) %></td>
+    </tr>
+    <tr>
+      <td>SMA</td>
+      <td>$<%= fees.fees.high.toFixed(2) %></td>
+    </tr>
+  </tbody>
+</table>
+
+<a href="/admin/educationFees/<%= year %>/edit" class="btn btn-primary">Edit SPP</a>
+
+<script>
+function changeYear() {
+  const year = document.getElementById('yearInput').value;
+  window.location.href = `/admin/educationFees/${year}`;
+}
+</script>

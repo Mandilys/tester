@@ -1,0 +1,31 @@
+<!-- views/payments/education.ejs -->
+<% layout('layouts/main') %>
+
+<div class="card">
+  <div class="card-body">
+    <!-- Change Student or Year Form -->
+    <div class="row g-3 mb-4">
+      <div class="col-md-6">
+        <label for="studentId" class="form-label">NIS</label>
+        <input type="text" class="form-control" id="studentId" value="<%= student ? student.studentId : '' %>" required>
+      </div>
+      <div class="col-md-4">
+        <label for="year" class="form-label">Tahun</label>
+        <input type="number" class="form-control" id="year" value="<%= year || '' %>" required>
+      </div>
+      <div class="col-md-2 align-self-end">
+        <button onclick="fetchPayments()" class="btn btn-primary">Input</button>
+      </div>
+    </div>
+
+    <% if (error) { %>
+      <div class="alert alert-danger"><%= error %></div>
+    <% } %>
+
+    <% if (student && payments) { %>
+      <!-- Payment Details -->
+    <% } %>
+  </div>
+</div>
+
+<script src="/js/payments/education.js"></script>

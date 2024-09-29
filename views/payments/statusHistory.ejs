@@ -1,0 +1,37 @@
+<!-- views/payments/statusHistory.ejs -->
+<% layout('layouts/main') %>
+
+<div class="card mb-4">
+  <div class="card-body">
+    <h1 class="mb-4">Payment Status History for <%= student.firstName %> <%= student.lastName %> - Year <%= year %></h1>
+
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">Updated At</th>
+            <th scope="col">Updated By</th>
+            <th scope="col">Status</th>
+            <th scope="col">Discount ($)</th>
+            <th scope="col">Amount Before Discount ($)</th>
+            <th scope="col">Amount After Discount ($)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% payment.statusChanges.forEach(change => { %>
+            <tr>
+              <td><%= new Date(change.updatedAt).toLocaleString() %></td>
+              <td><%= change.updatedBy.username %></td>
+              <td><%= change.status %></td>
+              <td><%= change.discount.toFixed(2) %></td>
+              <td><%= change.amountBeforeDiscount.toFixed(2) %></td>
+              <td><%= change.amountAfterDiscount.toFixed(2) %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+
+    <a href="/payments/education/<%= student.studentId %>/<%= year %>" class="btn btn-secondary">Back to Payments</a>
+  </div>
+</div>

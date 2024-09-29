@@ -1,0 +1,66 @@
+<!-- views/partials/navbar.ejs -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">SIJ</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link <% if (currentPath.startsWith('/admin/students')) { %>active<% } %>" href="/admin/students">SISWA</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link <% if (currentPath.startsWith('/admin/employees')) { %>active<% } %>" href="/admin/employees">STAFF</a>
+          </li>
+          <% if (userRole === 'admin') { %>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle <% if (currentPath.startsWith('/admin/fees')) { %>active<% } %>" href="#" id="feesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                SPP/TRANSPORTASI
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="feesDropdown">
+                <li>
+                  <a class="dropdown-item <% if (currentPath.startsWith('/admin/educationFees')) { %>active<% } %>" href="/admin/educationFees">Tarif SPP</a>
+                </li>
+                <li>
+                  <a class="dropdown-item <% if (currentPath.startsWith('/admin/transportFees')) { %>active<% } %>" href="/admin/transportFees">Tarif Transportasi</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle <% if (currentPath.startsWith('/payments')) { %>active<% } %>" href="#" id="paymentsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                PEMPAYARAN
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="paymentsDropdown">
+                <li>
+                  <a class="dropdown-item <% if (currentPath.startsWith('/payments/education')) { %>active<% } %>" href="/payments/education">Pempayaran SPP</a>
+                </li>
+                <li>
+                  <a class="dropdown-item <% if (currentPath.startsWith('/payments/transport')) { %>active<% } %>" href="/payments/transport">Pempayaran Transportasi</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link <% if (currentPath.startsWith('/admin/reports')) { %>active<% } %>" href="/admin/reports/monthly">RECAP</a>
+            </li>
+          <% } %>
+          <% if (userRole === 'admin' || userRole === 'employee') { %>
+            <li class="nav-item">
+              <a class="nav-link <% if (currentPath.startsWith('/admin/change-password')) { %>active<% } %>" href="/admin/change-password">GANTI PASSWORD</a>
+            </li>
+          <% } %>
+        </ul>
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item d-flex align-items-center">
+            <span class="navbar-text me-3">
+              Logged in as <strong><%= username %></strong>
+            </span>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>

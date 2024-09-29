@@ -1,0 +1,46 @@
+<!-- views/admin/educationFees/edit.ejs -->
+<% layout('layouts/main') %>
+
+<h1 class="mb-4">Edit SPP TAHUN <%= year %></h1>
+
+<form action="/admin/educationFees/<%= year %>" method="POST">
+  <div class="mb-3">
+    <label for="primaryEducationFee" class="form-label">SD-TK (SAR)</label>
+    <input
+      type="number"
+      step="0.01"
+      class="form-control"
+      id="primaryEducationFee"
+      name="fees[primary]"
+      value="<%= fees.fees.primary %>"
+      required
+    >
+  </div>
+  <div class="mb-3">
+    <label for="middleEducationFee" class="form-label">SMP (SAR)</label>
+    <input
+      type="number"
+      step="0.01"
+      class="form-control"
+      id="middleEducationFee"
+      name="fees[middle]"
+      value="<%= fees.fees.middle %>"
+      required
+    >
+  </div>
+  <div class="mb-3">
+    <label for="highEducationFee" class="form-label">SMA (SAR)</label>
+    <input
+      type="number"
+      step="0.01"
+      class="form-control"
+      id="highEducationFee"
+      name="fees[high]"
+      value="<%= fees.fees.high %>"
+      required
+    >
+  </div>
+
+  <button type="submit" class="btn btn-success">Update SPP</button>
+  <a href="/admin/educationFees/<%= year %>" class="btn btn-secondary">Cancel</a>
+</form>

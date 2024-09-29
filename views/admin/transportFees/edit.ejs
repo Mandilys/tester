@@ -1,0 +1,26 @@
+<!-- views/admin/transportFees/edit.ejs -->
+<% layout('layouts/main') %>
+
+<div class="card">
+  <div class="card-body">
+    <h1 class="mb-4">EDIT TARIF TRANSPORTASI  <%= year %> - District: <%= district %></h1>
+
+    <form action="/admin/transportFees/<%= year %>/<%= district %>" method="POST">
+      <div class="mb-3">
+        <label for="primaryTransportFee" class="form-label">Harga Full (SAR)</label>
+        <input type="number" step="0.01" class="form-control" id="primaryTransportFee" name="fees[primary]" value="<%= fees.fees.primary %>" required>
+      </div>
+      <div class="mb-3">
+        <label for="middleTransportFee" class="form-label">HARGA 85% (SAR)</label>
+        <input type="number" step="0.01" class="form-control" id="middleTransportFee" name="fees[middle]" value="<%= fees.fees.middle %>" required>
+      </div>
+      <div class="mb-3">
+        <label for="highTransportFee" class="form-label">HARGA 75% (SAR)</label>
+        <input type="number" step="0.01" class="form-control" id="highTransportFee" name="fees[high]" value="<%= fees.fees.high %>" required>
+      </div>
+
+      <button type="submit" class="btn btn-success">Update Tarif</button>
+      <a href="/admin/transportFees/<%= year %>/<%= district %>" class="btn btn-secondary">Cancel</a>
+    </form>
+  </div>
+</div>

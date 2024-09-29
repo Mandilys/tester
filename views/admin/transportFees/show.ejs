@@ -1,0 +1,67 @@
+<!-- views/admin/transportFees/show.ejs -->
+<% layout('layouts/main') %>
+
+<div class="card mb-4">
+  <div class="card-body">
+    <h1 class="mb-4">TARIF TRANSPORTASI TAHUN  <%= year %> - District: <%= district %></h1>
+
+    <div class="input-group mb-3">
+      <input type="number" id="yearInput" value="<%= year %>" class="form-control" min="2000" max="2100" placeholder="Year">
+      <input type="text" id="districtInput" value="<%= district %>" class="form-control" placeholder="District">
+      <button onclick="changeYearAndDistrict()" class="btn btn-secondary">CARI</button>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">HARGA</th>
+            <th scope="col">Tarif Per Tahun (SAR)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>FULL 100%</td>
+            <td>$<%= fees.fees.primary.toFixed(2) %></td>
+          </tr>
+          <tr>
+            <td>HARGA 85%</td>
+            <td>$<%= fees.fees.middle.toFixed(2) %></td>
+          </tr>
+          <tr>
+            <td>HARGA 75%</td>
+            <td>$<%= fees.fees.high.toFixed(2) %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <a href="/admin/transportFees/<%= year %>/<%= district %>/edit" class="btn btn-primary">Edit Tarif</a>
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+      Hapus Tarif
+    </button>
+  </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete the transportation fees for <%= district %> in <%= year %>?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <form action="/admin/transportFees/<%= year %>/<%= district %>/delete" method="POST" style="display: inline;">
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/js/admin/transportFees/show.js"></script>

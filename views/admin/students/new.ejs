@@ -1,0 +1,54 @@
+<% layout('layouts/main') %>
+
+<div class="card">
+  <div class="card-body">
+    <h1 class="mb-4">SISWA BARU</h1>
+
+    <form action="/admin/students" method="POST">
+      <div class="mb-3">
+        <label for="studentId" class="form-label">NIS</label>
+        <input type="text" class="form-control" id="studentId" name="studentId" required>
+      </div>
+      <div class="mb-3">
+        <label for="firstName" class="form-label">Nama</label>
+        <input type="text" class="form-control" id="firstName" name="firstName" required>
+      </div>
+      <div class="mb-3">
+        <label for="middleName" class="form-label">Nama Bapak</label>
+        <input type="text" class="form-control" id="middleName" name="middleName">
+      </div>
+      <div class="mb-3">
+        <label for="lastName" class="form-label">Nama Keluarga</label>
+        <input type="text" class="form-control" id="lastName" name="lastName" required>
+      </div>
+      <div class="mb-3">
+        <label for="level" class="form-label">Kelas</label>
+        <input type="number" class="form-control" id="level" name="level" min="1" max="12" required>
+      </div>
+      <div class="mb-3">
+        <label for="district" class="form-label">JK</label>
+        <input type="text" class="form-control" id="district" name="district" required>
+      </div>
+      <!-- Add Siblings Field -->
+      <div class="mb-3">
+        <label for="siblings" class="form-label">Sodara</label>
+        <div id="siblingsContainer">
+          <div class="input-group mb-2">
+            <select class="form-select" name="siblings[]">
+              <option value="">Pilih Sodara</option>
+              <% allStudents.forEach(student => { %>
+                <option value="<%= student.studentId %>"><%= student.studentId %> - <%= student.firstName %> <%= student.lastName %></option>
+              <% }) %>
+            </select>
+            <button type="button" class="btn btn-danger remove-sibling">Hapus</button>
+          </div>
+        </div>
+        <button type="button" class="btn btn-secondary btn-sm" id="addSibling">Tanbah Sodara</button>
+      </div>
+      <button type="submit" class="btn btn-success">Submit</button>
+      <a href="/admin/students" class="btn btn-secondary">Cancel</a>
+    </form>
+  </div>
+</div>
+
+<script src="/js/admin/students/new.js"></script>
